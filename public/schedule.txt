@@ -1,0 +1,24 @@
+
+No scheduled commands are ready to run.
+No scheduled commands are ready to run.
+Running scheduled command: '/usr/bin/php7.2' 'artisan' users:list >> '/schedule.txt' 2>&1
+No scheduled commands are ready to run.
+No scheduled commands are ready to run.
+No scheduled commands are ready to run.
+No scheduled commands are ready to run.
+Running scheduled command: '/usr/bin/php7.2' 'artisan' users:list >> '/schedule.txt' 2>&1
+No scheduled commands are ready to run.
+No scheduled commands are ready to run.
+No scheduled commands are ready to run.
+No scheduled commands are ready to run.
+Running scheduled command: '/usr/bin/php7.2' 'artisan' users:list > '/var/www/html/portalcliente/storage/logs/schedule-f5bee6a84de65d704afbd0be5836da9c1668e7d7.log' 2>&1
+No scheduled commands are ready to run.
+No scheduled commands are ready to run.
+No scheduled commands are ready to run.
+No scheduled commands are ready to run.
+Running scheduled command: '/usr/bin/php7.2' 'artisan' users:list > '/var/www/html/portalcliente/storage/logs/schedule-f5bee6a84de65d704afbd0be5836da9c1668e7d7.log' 2>&1
+No scheduled commands are ready to run.
+No scheduled commands are ready to run.
+No scheduled commands are ready to run.
+No scheduled commands are ready to run.
+Running scheduled command: '/usr/bin/php7.2' 'artisan' users:list > '/var/www/html/portalcliente/storage/logs/schedule-f5bee6a84de65d704afbd0be5836da9c1668e7d7.log' 2>&1
