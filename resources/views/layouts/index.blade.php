@@ -197,6 +197,40 @@
               table#cart tfoot td .btn{display:block;}
           }
         </style>
+        <style type="text/css">
+          /*.btn-cart-shop{
+            padding: .1rem .1rem;
+          }*/
+          .dropdownCart .cart-basket {
+            position: relative;
+            top: -8px;
+            left: -8px;
+          }
+        </style>
+        <style> 
+          @font-face {
+              font-family: 'FS Me';
+              src: url('/webfonts/nobrega/FSMe.eot');
+              src: url('/webfonts/nobrega/FSMe.eot?#iefix') format('embedded-opentype'),
+                  url('/webfonts/nobrega/FSMe.woff2') format('woff2'),
+                  url('/webfonts/nobrega/FSMe.woff') format('woff'),
+                  url('/webfonts/nobrega/FSMe.ttf') format('truetype'),
+                  url('/webfonts/nobrega/FSMe.svg#FSMe') format('svg');
+              font-weight: normal;
+              font-style: normal;
+              font-display: swap;
+          }
+          body {
+            font-family: 'FS Me'; font-weight: normal; font-style: normal;
+          }
+          *, .font-pantone {
+             font-family: FS Me;
+          }
+
+          .category-menu{
+            font-family: FS Me;
+          }
+        </style>
         {{-- Scripts --}}
         <script>
             window.Laravel = {!! json_encode([

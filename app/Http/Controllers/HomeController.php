@@ -94,11 +94,22 @@ class HomeController extends Controller
         $top_menu = '';
         $select = '';
         $url = '';
+        $display_menu = '';
+
+        $page_name = '/catalogo-cart?';
 
         $url_conservacao    = $request->query('conservacao');
         $url_familia        = $request->query('familia');
         $url_order_by       = $request->query('order_by');
         $page               = $request->query('page');
+        $display            = $request->query('display');
+
+        if (isset($display)) 
+        {
+            $display = $display;
+        }else{
+            $display = '90';
+        }
 
         if (isset($url_order_by) && !empty($url_order_by)) 
         {
@@ -123,7 +134,8 @@ class HomeController extends Controller
         }
 
         //SELECT OPTIONS
-        switch ([$order, $by]) {
+        switch ([$order, $by]) 
+        {
             case ['number', 'asc']:
                 $select .= '<option value="'.URL::current().'?'.$url.'&order_by=number_asc" selected="selected">Código</option>';
                 $select .= '<option value="'.URL::current().'?'.$url.'&order_by=name_asc">Nome (Crescente)</option>';
@@ -187,7 +199,54 @@ class HomeController extends Controller
             $url .= '&page=1';
         }
 
+        switch ($display) 
+        {
+            case '30':
+                    
+                        $display_menu .= '<div class="products-number-display">';
+                            $display_menu .= '<span><strong>Mostrar</strong></span>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=30" class="btn btn-sm btn-success ml-1 mr-1 px-1 disabled">30</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=60" class="btn btn-sm btn-outline-secondary ml-1 mr-1 px-1">60</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=90" class="btn btn-sm btn-outline-secondary ml-1 mr-1 px-1">90</a>';
+                            $display_menu .= '<span>produtos</span>';
+                        $display_menu .= '</div>';
+
+                break;
+            case '60':
+                    
+                        $display_menu .= '<div class="products-number-display">';
+                            $display_menu .= '<span><strong>Mostrar</strong></span>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=30" class="btn btn-sm btn-outline-secondary ml-1 mr-1 px-1">30</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=60" class="btn btn-sm  btn-success ml-1 mr-1 px-1 disabled">60</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=90" class="btn btn-sm btn-outline-secondary ml-1 mr-1 px-1">90</a>';
+                            $display_menu .= '<span>produtos</span>';
+                        $display_menu .= '</div>';
+
+                break;
+            case '90':
+                    
+                        $display_menu .= '<div class="products-number-display">';
+                            $display_menu .= '<span><strong>Mostrar</strong></span>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=30" class="btn btn-sm btn-outline-secondary ml-1 mr-1 px-1">30</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=60" class="btn btn-sm btn-outline-secondary ml-1 mr-1 px-1">60</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=90" class="btn btn-sm btn-success ml-1 mr-1 px-1 disabled">90</a>';
+                            $display_menu .= '<span>produtos</span>';
+                        $display_menu .= '</div>';
+
+                break;
+            default:
+                    
+                        $display_menu .= '<div class="products-number-display">';
+                            $display_menu .= '<span><strong>Mostrar</strong></span>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=30" class="btn btn-sm btn-outline-secondary ml-1 mr-1 px-1">30</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=60" class="btn btn-sm btn-outline-secondary ml-1 mr-1 px-1">60</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=90" class="btn btn-sm btn-success ml-1 mr-1 px-1 disabled">90</a>';
+                            $display_menu .= '<span>produtos</span>';
+                        $display_menu .= '</div>';
+        }
+
         $familias_array = [
+            ['family_link' => 'all', 'family_title'                    => 'Todas'],
             ['family_link' => 'aves', 'family_title'                    => 'aves'],
             ['family_link' => 'bovinos', 'family_title'                 => 'bovinos'],
             ['family_link' => 'caprinos', 'family_title'                => 'caprinos'],
@@ -320,7 +379,7 @@ class HomeController extends Controller
                 $products->where('name', 'like', '%'.$request->input('_search').'%');
                 $products->orWhere('number', 'like', '%'.$request->input('_search').'%');
                 $products->orWhere('origem', 'like', '%'.$request->input('_search').'%');
-                $products = $products->paginate(1500)->onEachSide(2); 
+                $products = $products->paginate(3000)->onEachSide(2); 
 
                 foreach ($products as $key => $value) 
                 {
@@ -336,7 +395,7 @@ class HomeController extends Controller
                 $menu .= '<a href="/catalogo-cart" class="btn btn-warning btn active" role="button" aria-pressed="true">Ver Catálogo</a>';
                 $menu .= '</ul>';
 
-                return view('shopping-cart.show-catalogo-cart2', ['search_title' => 'Pesquisa','select' => $select,'url' => $url, 'sidebar' => $menu, 'topbar' => $top_menu, 'sort_by' => $order.'_'.$by, 'conservacao' => $type, 'familia' => $subtype, 'products' => $products]);
+                return view('shopping-cart.show-catalogo-cart2', ['search_title' => 'Pesquisa','select' => $select,'url' => $url, 'sidebar' => $menu, 'topbar' => $top_menu, 'sort_by' => $order.'_'.$by, 'conservacao' => $type, 'familia' => $subtype, 'products' => $products, 'display_menu' => $display_menu, 'display' => $display]);
             }
 
             if ($request->input('conservacao') || $request->input('familia')) 
@@ -371,7 +430,7 @@ class HomeController extends Controller
                     $products->where('alias_subtype', '=', $subtype);
                 }
                 
-                $products = $products->paginate(99)->onEachSide(2);
+                $products = $products->paginate($display)->onEachSide(2);
 
                 foreach ($products as $key => $value) 
                 {
@@ -387,7 +446,7 @@ class HomeController extends Controller
                         $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
-                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu">';
+                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu text-left">';
                             $menu .= '<li class="nav-item">';
                                   $menu .= '<ul class="nav nav-pills flex-column family-menu">';
                                     foreach ($familias_array as $key => $value) 
@@ -410,7 +469,7 @@ class HomeController extends Controller
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
                         $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
-                        $menu .= '<ul class="nav nav-pills flex-column text-sm category-menu">';
+                        $menu .= '<ul class="nav nav-pills flex-column text-sm category-menu text-left">';
                             $menu .= '<li class="nav-item">';
                                   $menu .= '<ul class="nav nav-pills flex-column family-menu">';
                                    foreach ($familias_array as $key => $value) 
@@ -433,7 +492,7 @@ class HomeController extends Controller
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
                         $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
-                        $menu .= '<ul class="nav nav-pills flex-column text-sm category-menu">';
+                        $menu .= '<ul class="nav nav-pills flex-column text-sm category-menu text-left">';
                             $menu .= '<li class="nav-item">';
                                   $menu .= '<ul class="nav nav-pills flex-column family-menu">';
                                    foreach ($familias_array as $key => $value) 
@@ -456,7 +515,7 @@ class HomeController extends Controller
                         $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
-                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu">';
+                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu text-left">';
                             $menu .= '<li class="nav-item">';
                                   $menu .= '<ul class="nav nav-pills flex-column family-menu">';
                                     foreach ($familias_array as $key => $value) 
@@ -491,7 +550,7 @@ class HomeController extends Controller
                         $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
-                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu">';
+                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu text-left">';
                             $menu .= '<li class="nav-item">';
                                   $menu .= '<ul class="nav nav-pills flex-column family-menu">';
                                     foreach ($familias_array as $key => $value) 
@@ -514,7 +573,7 @@ class HomeController extends Controller
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
                         $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
-                        $menu .= '<ul class="nav nav-pills flex-column text-sm category-menu">';
+                        $menu .= '<ul class="nav nav-pills flex-column text-sm category-menu text-left">';
                             $menu .= '<li class="nav-item">';
                                   $menu .= '<ul class="nav nav-pills flex-column family-menu">';
                                    foreach ($familias_array as $key => $value) 
@@ -537,7 +596,7 @@ class HomeController extends Controller
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
                         $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
-                        $menu .= '<ul class="nav nav-pills flex-column text-sm category-menu">';
+                        $menu .= '<ul class="nav nav-pills flex-column text-sm category-menu text-left">';
                             $menu .= '<li class="nav-item">';
                                   $menu .= '<ul class="nav nav-pills flex-column family-menu">';
                                    foreach ($familias_array as $key => $value) 
@@ -560,7 +619,7 @@ class HomeController extends Controller
                         $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
-                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu">';
+                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu text-left">';
                             $menu .= '<li class="nav-item">';
                                   $menu .= '<ul class="nav nav-pills flex-column family-menu">';
                                     foreach ($familias_array as $key => $value) 
@@ -581,7 +640,7 @@ class HomeController extends Controller
                         break;
                 }
 
-                $products = product::orderBy($order,$by)->whereNOTIn('number', $not_allowed)->where('type', '=', $type)->paginate(99)->onEachSide(2);
+                $products = product::orderBy($order,$by)->whereNOTIn('number', $not_allowed)->where('type', '=', $type)->paginate($display)->onEachSide(2);
 
                 foreach ($products as $key => $value) 
                 {
@@ -594,7 +653,9 @@ class HomeController extends Controller
             }
         }
 
-        return view('shopping-cart.show-catalogo-cart2', ['select' => $select, 'url' => $url,'sidebar' => $menu, 'topbar' => $top_menu, 'sort_by' => $order.'_'.$by, 'conservacao' => $type, 'familia' => $subtype, 'products' => $products]);
+        //dd($display_menu);
+
+        return view('shopping-cart.show-catalogo-cart2', ['select' => $select, 'url' => $url,'sidebar' => $menu, 'topbar' => $top_menu, 'sort_by' => $order.'_'.$by, 'conservacao' => $type, 'familia' => $subtype, 'products' => $products, 'display_menu' => $display_menu, 'display' => $display]);
     }
     /* TEMP */
     public function getCatalogoFiltered(Request $request)

@@ -294,7 +294,8 @@
           text-decoration: underline;
       }
       .panel {
-          background-color: #343a40;
+          /*background-color: #343a40;*/
+          background-color: #FFF;
           border: 1px solid rgba(0,0,0,.07);
           border-radius: .25rem;
           -webkit-box-shadow: 0 1px 5px rgba(0,0,0,.1);
@@ -311,7 +312,7 @@
           -webkit-font-feature-settings: "kern" 20;
           font-feature-settings: "kern" 20;
           font-kerning: normal;
-          color: #FFF;
+          color: #444242;
       }
       .panel-heading h3 {
           margin-top: 5px;
@@ -334,7 +335,7 @@
       }
       .panel-body {
           /*padding: 0 1.25rem 1.25rem 1.25rem;*/
-          padding: 0;
+          padding: .5rem;
       }
       .topmenu.nav-pills > a {
         background-color: #93BA1F;
@@ -402,17 +403,46 @@
           font-kerning: normal;
       }
       .family-menu .nav-link:first-child {
-        border-top: 1px solid rgba(0,0,0,.6);
+        /*border-top: 1px solid rgba(0,0,0,.6);*/
       }
 
       .family-menu .nav-link{
-        color: #FFF;
-        border-bottom: 1px solid rgba(0,0,0,.6);
+        /*color: #FFF;*/
+        color: #444242;
+        /*border-bottom: 1px solid rgba(0,0,0,.6);*/
+        border-bottom: 1px solid #93ba1f;
         padding: 10px;
         /*font-size: 0.75em;*/
       }
     </style>
     <style type="text/css">
+      .center{
+        width: 150px;
+        margin: 40px auto; 
+      }
+      #catalogoSortBy option:hover{
+        color: whitesmoke !important;
+        background: #93ba1f !important;
+      }
+      .active-cyan-2 input[type="text"]:not(.browser-default) {
+          -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+          background-color: transparent;
+          border: 0;
+          border-bottom: 1px solid #ced4da;
+          border-radius: 0;
+          outline: 0;
+          -webkit-box-shadow: none;
+          box-shadow: none;
+          -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+          transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+          transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+          transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+      }
+      .active-cyan-2 input.form-control[type=text]:focus:not([readonly]) {
+          border-bottom: 1px solid #93ba1f;
+          box-shadow: 0 1px 0 0 #93BA1F;
+      }
     </style>
 @endsection
 
@@ -428,7 +458,7 @@
 @endsection
 
 @section('content')
-  <div class="container products filters">
+  <div class="container products filters font-pantone">
       <span id="status"></span>
       <div class="row">
         <div class="col-md-12">
@@ -441,65 +471,66 @@
       </div>
       <div class="sticky-top">
         <div class="row">
-          <div class="col-md-12">
-            <nav class="navbar navbar-light bg-light mb-3" >
-
-              <div class="col-md-6 float-left mb-3">
-                Mostrando &nbsp;<b>{{ $products->lastItem() }}</b>&nbsp; de &nbsp;<b>{{ $products->total() }}</b>&nbsp; produtos
-              </div>
-
-              <form role="search" class="form-inline col-md-6 mb-3" method="get" action="/catalogo-cart/pesquisa" style="display: block !important;">
-                <div class="input-group mb-3">
-                  <input type="search" class="form-control" placeholder="Pesquisar..." aria-label="Pesquisar..." aria-describedby="basic-addon2"  name="_search">
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="submit">Pesquisar</button>
-                  </div>
-                </div>
-              </form>
-              <div class="col-md-6 float-left">
-                <div class="form-row">
-                  <label for="staticSort" class="col-sm-3 col-form-label" style="line-height: 1;">Ordenar por:</label>
-                  <div class="col-sm-9">
-                    <select class="form-control-sm" id="catalogoSortBy" name="sort_by" onchange="location = this.value;">
-                      <?php echo $select; ?>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="pagination-sm pagination-lg float-right">
-                  {{ $products->appends(['conservacao' => $conservacao, 'familia' => $familia, 'sort_by' => $sort_by])->links() }}
-                </div>
-              </div>
-
-            </nav>
-          </div>
-        </div>
-
-        <div class="row">
           <div class="d-md-none d-lg-block col-lg-2 order-1 order-md-0">
               <!-- MENUS AND FILTERS-->
               <div class="panel panel-default sidebar-menu rounded-0 text-center">
-                  <div class="panel-heading">
-                    @if(isset($search_title))
-                      <h3 class="h4 panel-title"> {{$search_title}}</h3>
-                    @else
-                      <h3 class="h4 panel-title"> FAMÍLIAS</h3>
-                    @endif
-                  </div>
-                  <div class="panel-body">
-                    <?php
-                      echo $sidebar;
-                    ?>
-                  </div>
+                <div class="panel-heading" style="background: #f7f7f8; border-bottom: 1px solid #eee">
+                  <section class="mb-4">
+                      <div class="md-form md-outline mt-0 d-flex justify-content-between align-items-center">
+                          <input type="text" id="search12" class="form-control mb-0 rounded-0" placeholder="Pesquisar...">
+                      </div>
+                  </section>
+                  @if(isset($search_title))
+                    <h3 class="h4 panel-title"> {{$search_title}}</h3>
+                  @else
+                    <h3 class="h4 panel-title"> FAMÍLIAS</h3>
+                  @endif
+                </div>
+                <div class="panel-body">
+                  <?php echo $sidebar; ?>
+                </div>
               </div>
           </div>
           <div class="col-md-12 col-lg-10 order-0 order-md-1">
+            <!-- Search form -->
+            <div class="md-form active-cyan-2 mb-3">
+              <input class="form-control" type="text" placeholder="Pesquisar..." aria-label="Pesquisar..." style="padding: 1px 1px;">
+            </div>
             <nav class="nav nav-pills nav-fill mb-3 topmenu">
               <?php echo $topbar; ?>
             </nav>
             <hr>
+
+            <div class="row">
+              <div class="col-md-12">
+                <nav class="navbar navbar-light bg-light mb-3" >
+                  <!--div class="col-md-6 float-left mb-3">
+                    Mostrando &nbsp;<b>{{ $products->lastItem() }}</b>&nbsp; de &nbsp;<b>{{ $products->total() }}</b>&nbsp; produtos
+                  </div>
+                  <form role="search" class="form-inline col-md-6 mb-3" method="get" action="/catalogo-cart/pesquisa" style="display: block !important;">
+                    <div class="input-group mb-3">
+                      <input type="search" class="form-control" placeholder="Pesquisar..." aria-label="Pesquisar..." aria-describedby="basic-addon2"  name="_search">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">Pesquisar</button>
+                      </div>
+                    </div>
+                  </form~-->
+                  <div class="col-6 col-md-4 float-left">
+                    <b>{{ $products->lastItem() }}</b>&nbsp; de &nbsp;<b>{{ $products->total() }}</b>&nbsp; produtos
+                  </div>
+                  <div class="col-6 col-md-4"><?php echo $display_menu; ?></div>
+                  <div class="col-12 col-md-4">
+                    <div class="form-row">
+                        <label for="staticSort" class="col-6 col-sm-4 col-form-label" style="line-height: 1;">Ordenar por:</label>
+                        <div class="col-6 col-sm-8">
+                          <select class="form-control-sm" id="catalogoSortBy" name="sort_by" onchange="location = this.value;"><?php echo $select; ?></select>
+                        </div>
+                      </div>
+                    </div>
+                </nav>
+              </div>
+            </div>
+
             @include('shopping-cart.show-catalogo-result2')
           </div>
         </div>       
@@ -510,38 +541,78 @@
 @section('footer_scripts')
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-      <!-- DESKTOP SEARCH INPUT -->
-    <script type="text/javascript">
-      /*search_input = document.getElementsByClassName("quicksearch2");
-      search_input[0].addEventListener("keyup", function(event) 
-      {
-        if (event.keyCode === 13) {
-          event.preventDefault();
-          var search_query = $(this).closest('div.has-search').find('input.quicksearch2').val();
-          console.log(search_query);
-          if ( search_query.length < 3 ){
-            alert('Erro. Tem que inserir no mínimo 3 caracteres.');
-          }
-          else{
-            $.ajax({
-                url: '?_search=' + search_query,
-                method: "get",
-                data: {_token: '{{ csrf_token() }}'},
-                dataType: "html",
-                success: function (products) {
-                    var clean_uri = location.protocol + "//" + location.host + location.pathname;
-                    window.history.replaceState({}, document.title, clean_uri);
-                    search_input.value = '';
-                    $('.btn-search-clear').fadeIn();
-                    $('.conservacao-group, .familia-group, .filter-conservacao-mobile').hide();
-                    $("#content" ).empty().html(products);
-                    $("#content").fadeIn();
+  <!-- Quantity button -->
+  <script type="text/javascript">
+    $('.btn-number').click(function(e){
+        e.preventDefault();
+        
+        fieldName = $(this).attr('data-field');
+        type      = $(this).attr('data-type');
+        var input = $("input[name='"+fieldName+"']");
+        var currentVal = parseInt(input.val());
+        if (!isNaN(currentVal)) {
+            if(type == 'minus') {
+                
+                if(currentVal > input.attr('min')) {
+                    input.val(currentVal - 1).change();
+                } 
+                if(parseInt(input.val()) == input.attr('min')) {
+                    $(this).attr('disabled', true);
                 }
-            });
-          }
+
+            } else if(type == 'plus') {
+
+                if(currentVal < input.attr('max')) {
+                    input.val(currentVal + 1).change();
+                }
+                if(parseInt(input.val()) == input.attr('max')) {
+                    $(this).attr('disabled', true);
+                }
+
+            }
+        } else {
+            input.val(0);
         }
-      });*/
-    </script>
+    });
+    $('.input-number').focusin(function(){
+       $(this).data('oldValue', $(this).val());
+    });
+    $('.input-number').change(function() {
+        
+        minValue =  parseInt($(this).attr('min'));
+        maxValue =  parseInt($(this).attr('max'));
+        valueCurrent = parseInt($(this).val());
+        
+        name = $(this).attr('name');
+        if(valueCurrent >= minValue) {
+            $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+        } else {
+            alert('Sorry, the minimum value was reached');
+            $(this).val($(this).data('oldValue'));
+        }
+        if(valueCurrent <= maxValue) {
+            $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+        } else {
+            alert('Sorry, the maximum value was reached');
+            $(this).val($(this).data('oldValue'));
+        }  
+    });
+    $(".input-number").keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+                 // Allow: Ctrl+A
+                (e.keyCode == 65 && e.ctrlKey === true) || 
+                 // Allow: home, end, left, right
+                (e.keyCode >= 35 && e.keyCode <= 39)) {
+                     // let it happen, don't do anything
+                     return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+    });
+  </script>
 @stop
 
 
