@@ -29,7 +29,7 @@
         <!-- BOOTSTRAP -->
         <link href="/css/bootstrap.min.css" rel="stylesheet"/>
         <!-- FONT AWESOME -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/all.css">
         <link rel="stylesheet" type="text/css" href="/css/style.css">
         @yield('template_linked_css')
         <style type="text/css">
@@ -316,7 +316,7 @@
             </div>
         </div>
         <script src="/js/jquery-3.4.0.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="/js/popper.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         @yield('footer_scripts')
     </body>

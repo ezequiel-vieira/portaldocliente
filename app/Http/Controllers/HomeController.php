@@ -205,9 +205,9 @@ class HomeController extends Controller
                     
                         $display_menu .= '<div class="products-number-display">';
                             $display_menu .= '<span><strong>Mostrar</strong></span>';
-                            $display_menu .= '<a href="'.$page_name.$url.'&display=30" class="btn btn-sm btn-success ml-1 mr-1 px-1 disabled">30</a>';
-                            $display_menu .= '<a href="'.$page_name.$url.'&display=60" class="btn btn-sm btn-outline-secondary ml-1 mr-1 px-1">60</a>';
-                            $display_menu .= '<a href="'.$page_name.$url.'&display=90" class="btn btn-sm btn-outline-secondary ml-1 mr-1 px-1">90</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=30" class="btn btn-sm btn-success disabled">30</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=60" class="btn btn-sm btn-outline-secondary ">60</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=90" class="btn btn-sm btn-outline-secondary ">90</a>';
                             $display_menu .= '<span>produtos</span>';
                         $display_menu .= '</div>';
 
@@ -216,9 +216,9 @@ class HomeController extends Controller
                     
                         $display_menu .= '<div class="products-number-display">';
                             $display_menu .= '<span><strong>Mostrar</strong></span>';
-                            $display_menu .= '<a href="'.$page_name.$url.'&display=30" class="btn btn-sm btn-outline-secondary ml-1 mr-1 px-1">30</a>';
-                            $display_menu .= '<a href="'.$page_name.$url.'&display=60" class="btn btn-sm  btn-success ml-1 mr-1 px-1 disabled">60</a>';
-                            $display_menu .= '<a href="'.$page_name.$url.'&display=90" class="btn btn-sm btn-outline-secondary ml-1 mr-1 px-1">90</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=30" class="btn btn-sm btn-outline-secondary ">30</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=60" class="btn btn-sm  btn-success disabled">60</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=90" class="btn btn-sm btn-outline-secondary ">90</a>';
                             $display_menu .= '<span>produtos</span>';
                         $display_menu .= '</div>';
 
@@ -227,9 +227,9 @@ class HomeController extends Controller
                     
                         $display_menu .= '<div class="products-number-display">';
                             $display_menu .= '<span><strong>Mostrar</strong></span>';
-                            $display_menu .= '<a href="'.$page_name.$url.'&display=30" class="btn btn-sm btn-outline-secondary ml-1 mr-1 px-1">30</a>';
-                            $display_menu .= '<a href="'.$page_name.$url.'&display=60" class="btn btn-sm btn-outline-secondary ml-1 mr-1 px-1">60</a>';
-                            $display_menu .= '<a href="'.$page_name.$url.'&display=90" class="btn btn-sm btn-success ml-1 mr-1 px-1 disabled">90</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=30" class="btn btn-sm btn-outline-secondary ">30</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=60" class="btn btn-sm btn-outline-secondary ">60</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=90" class="btn btn-sm btn-success disabled">90</a>';
                             $display_menu .= '<span>produtos</span>';
                         $display_menu .= '</div>';
 
@@ -238,9 +238,9 @@ class HomeController extends Controller
                     
                         $display_menu .= '<div class="products-number-display">';
                             $display_menu .= '<span><strong>Mostrar</strong></span>';
-                            $display_menu .= '<a href="'.$page_name.$url.'&display=30" class="btn btn-sm btn-outline-secondary ml-1 mr-1 px-1">30</a>';
-                            $display_menu .= '<a href="'.$page_name.$url.'&display=60" class="btn btn-sm btn-outline-secondary ml-1 mr-1 px-1">60</a>';
-                            $display_menu .= '<a href="'.$page_name.$url.'&display=90" class="btn btn-sm btn-success ml-1 mr-1 px-1 disabled">90</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=30" class="btn btn-sm btn-outline-secondary ">30</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=60" class="btn btn-sm btn-outline-secondary ">60</a>';
+                            $display_menu .= '<a href="'.$page_name.$url.'&display=90" class="btn btn-sm btn-success disabled">90</a>';
                             $display_menu .= '<span>produtos</span>';
                         $display_menu .= '</div>';
         }
@@ -375,10 +375,24 @@ class HomeController extends Controller
 
             if ($request->input('_search')) 
             {
+                $searchValues = preg_split('/\s+/', $request->input('_search'), -1, PREG_SPLIT_NO_EMPTY);
+
                 $products = product::orderBy('number','ASC')->whereNOTIn('number', $not_allowed)->where('catalogo_type', '=', '1');
-                $products->where('name', 'like', '%'.$request->input('_search').'%');
+
+                $products = product::where(function ($q) use ($searchValues) 
+                {
+                  foreach ($searchValues as $value) 
+                  {
+                    $q->orWhere('name', 'like', "%{$value}%");
+                    $q->orWhere('number', 'like', "%{$value}%");
+                    $q->orWhere('origem', 'like', "%{$value}%");
+                  }
+                });
+
+                /*$products->where('name', 'like', '%'.$request->input('_search').'%');
                 $products->orWhere('number', 'like', '%'.$request->input('_search').'%');
-                $products->orWhere('origem', 'like', '%'.$request->input('_search').'%');
+                $products->orWhere('origem', 'like', '%'.$request->input('_search').'%');*/
+
                 $products = $products->paginate(3000)->onEachSide(2); 
 
                 foreach ($products as $key => $value) 
@@ -443,9 +457,9 @@ class HomeController extends Controller
                 //SIDEBAR-MENU
                 switch ($conservacao) {
                     case 'ambiente':
-                        $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
-                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
-                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
+                        $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=ambiente&amp;familia='.$familia.'">Ambiente</a>';
+                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=congelado&amp;familia='.$familia.'">Congelados</a>';
+                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=refrigerado&amp;familia='.$familia.'">Refrigerados</a>';
                         $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu text-left">';
                             $menu .= '<li class="nav-item">';
                                   $menu .= '<ul class="nav nav-pills flex-column family-menu">';
@@ -542,7 +556,7 @@ class HomeController extends Controller
                 $type = 'ambiente';
                 $subtype = 'all';
                 $conservacao = 'ambiente';
-                $familia = '';
+                $familia = 'all';
                 
                 //SIDEBAR-MENU
                 switch ($conservacao) {

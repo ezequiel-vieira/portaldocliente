@@ -30,13 +30,22 @@
         <!-- BOOTSTRAP -->
         <link href="/css/bootstrap.min.css" rel="stylesheet"/>
         <!-- FONT AWESOME -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" />
+        <link rel="stylesheet" href="/css/all.css"/>
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Poppins:300,400&display=swap" rel="stylesheet"/>
         <link rel="stylesheet" type="text/css" href="/css/style.css"/>
         @yield('template_linked_css')
         <style type="text/css">
             @yield('template_fastload_css')
+            .u-userLauncherColor:not([disabled]) {
+                box-shadow: none;
+                background-color: #93ba1f !important;
+                color: #3B502A !important;
+                fill: #3B502A !important;
+            }
+            .breadcrumb {
+              margin-bottom: 0rem;
+            }
             .footer-left{
                 display: inline-block;
                 vertical-align: top;
@@ -98,7 +107,6 @@
           }
           .dropdownCart{
               float:right;
-              padding-right: 30px;
               padding-left: 30px;
           }
           .dropdownCart .dropdown-menu {
@@ -198,13 +206,11 @@
           }
         </style>
         <style type="text/css">
-          /*.btn-cart-shop{
-            padding: .1rem .1rem;
-          }*/
           .dropdownCart .cart-basket {
             position: relative;
             top: -8px;
-            left: -8px;
+            -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+            box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12); 
           }
         </style>
         <style> 
@@ -220,7 +226,19 @@
               font-style: normal;
               font-display: swap;
           }
-          body {
+          @font-face {
+              font-family: 'FSMe-Bold';
+              src: url('/webfonts/nobrega/FSMe-Bold.eot');
+              src: url('/webfonts/nobrega/FSMe-Bold.eot?#iefix') format('embedded-opentype'),
+                  url('/webfonts/nobrega/FSMe-Bold.woff2') format('woff2'),
+                  url('/webfonts/nobrega/FSMe-Bold.woff') format('woff'),
+                  url('/webfonts/nobrega/FSMe-Bold.ttf') format('truetype'),
+                  url('/webfonts/nobrega/FSMe-Bold.svg') format('svg');
+              font-weight: normal;
+              font-style: normal;
+              font-display: swap;
+          }
+          html, body {
             font-family: 'FS Me'; font-weight: normal; font-style: normal;
           }
           *, .font-pantone {
@@ -264,7 +282,7 @@
         </footer>
         <!-- Footer -->
         <script src="/js/jquery-3.4.0.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="/js/popper.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script type="text/javascript">
           $(function () {

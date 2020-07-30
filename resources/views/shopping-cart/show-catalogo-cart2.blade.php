@@ -7,6 +7,7 @@
 @section('template_linked_css') 
     <!--link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css"-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
     <style type="text/css">
       html 
       {
@@ -204,12 +205,12 @@
       /*********************************/
       .page-item.active .page-link {
           z-index: 1;
-          color: #93ba1f;
-          background-color: #343a40;
-          border-color: #343a40;
+          color: #ffffff;
+          background-color: #93ba1f;
+          border-color: #93ba1f;
       }
       .page-link {
-          color: #93ba1f;
+          color: #343a40;
           background-color: #fff;
           border: 1px solid #dee2e6;
       }
@@ -287,7 +288,7 @@
       }
     </style>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <!--link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css"-->
     <style type="text/css">
       .sidebar-menu a:hover {
           color: #93ba1F;
@@ -306,13 +307,13 @@
         margin: 0;
       }
       .panel-heading h3 {
-          font-weight: 800;
+          font-family: 'FSMe-Bold';
           font-size: .9167rem;
           -moz-font-feature-settings: "kern" 20;
           -webkit-font-feature-settings: "kern" 20;
           font-feature-settings: "kern" 20;
           font-kerning: normal;
-          color: #444242;
+          color: #FFF;
       }
       .panel-heading h3 {
           margin-top: 5px;
@@ -337,37 +338,39 @@
           /*padding: 0 1.25rem 1.25rem 1.25rem;*/
           padding: .5rem;
       }
-      .topmenu.nav-pills > a {
+      .topmenu.nav-pills > a 
+      {
         background-color: #93BA1F;
         color: #FFF;
       }
-      .topmenu.nav-pills > a:not(.active):hover {
-          color: #93BA1F;
-          background-color: #f8f9fa;
+      .nav-pills .show>.nav-link {
+          color: #fff !important;
+          background-color: #444242 !important;
       }
-      
-      /*.topmenu.nav-pills > a {
-          border: 0 !important;
-          border-radius: 0;
-          line-height: 18px;
-          text-transform: uppercase;
-          font-size: 12px;
-          font-weight: 500;
-          min-width: 100px;
-          text-align: center;
-          color: #555555 !important;
-      }*/
-      .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+      .topmenu .nav-link.active {
+        background: #93ba1f !important;
+        color: #FFFFFF !important;
+      }
+      .topmenu .nav-link.active:hover {
           color: #fff;
-          background-color: #93ba1f;
+          background-color: #759419 !important;
+          border-color: #759419;
       }
-      .nav-pills .nav-link.active {
-        /*background: #93ba1f;*/
-        background: #343a40;
-        color: #93ba1f;
+      .topmenu .nav-link {
+        background: transparent !important;
+        color: #444242 !important;
+        webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+        -webkit-transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+        transition: color .15s ease-in-out,background-color .15s ease-in-out, border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+        transition: color .15s ease-in-out,background-color .15s ease-in-out, border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        transition: color .15s ease-in-out,background-color .15s ease-in-out, border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+        background: linear-gradient(40deg,#d3d3d3,#eee) !important;
       }
-      .nav-link.active {
-        /*color: rgb(255,255,255) !important;*/
+      .topmenu > .nav-link:not(.active):hover {
+          color: #93BA1F !important;
+          text-decoration: underline;
+          background: linear-gradient(40deg,#eee,#fff) !important;
       }
       .nav-link.sub-link.active {
           color: #93ba1f !important;
@@ -376,8 +379,9 @@
           text-decoration: underline;
       }
       .category-menu a.nav-link {
-          font-weight: 800 !important;
-          font-size: .8333rem;
+          /*font-weight: 800 !important;
+          font-size: .8333rem;*/
+          font-family: 'FSMe-Bold';
           -moz-font-feature-settings: "kern" 20;
           -webkit-font-feature-settings: "kern" 20;
           font-feature-settings: "kern" 20;
@@ -402,47 +406,74 @@
           font-feature-settings: "kern" 10;
           font-kerning: normal;
       }
-      .family-menu .nav-link:first-child {
-        /*border-top: 1px solid rgba(0,0,0,.6);*/
-      }
-
       .family-menu .nav-link{
-        /*color: #FFF;*/
         color: #444242;
-        /*border-bottom: 1px solid rgba(0,0,0,.6);*/
         border-bottom: 1px solid #93ba1f;
         padding: 10px;
-        /*font-size: 0.75em;*/
+      }
+      .products-number-display .btn-outline-secondary {
+          color: #444242;
+          border: 1px solid transparent;
+          border-right: 1px solid #444242;
+          border-radius: 0;
+      }
+      .products-number-display .btn-success.disabled, .products-number-display .btn-success:disabled {
+          /*color: #fff;
+          background-color: #93ba1f;
+          border-color: #93ba1f;*/
+          color: #93ba1f;
+          text-decoration: underline;
+          background-color: transparent;
+          border-color: transparent;
+      }
+      .select2-container--classic .select2-selection--single .select2-selection__arrow {
+        border-left: 0px solid #aaa;
+        background-color: transparent;
+        background-image: none;
       }
     </style>
     <style type="text/css">
-      .center{
-        width: 150px;
-        margin: 40px auto; 
-      }
-      #catalogoSortBy option:hover{
-        color: whitesmoke !important;
-        background: #93ba1f !important;
-      }
-      .active-cyan-2 input[type="text"]:not(.browser-default) {
-          -webkit-box-sizing: content-box;
-          box-sizing: content-box;
-          background-color: transparent;
-          border: 0;
-          border-bottom: 1px solid #ced4da;
-          border-radius: 0;
+        .center{
+            width: 150px;
+            margin: 40px auto; 
+        }
+        .active-cyan-2 input[type="text"]:not(.browser-default) {
+            -webkit-box-sizing: content-box;
+            box-sizing: content-box;
+            background-color: transparent;
+            border: 0;
+            border-bottom: 1px solid #ced4da;
+            border-radius: 0;
+            outline: 0;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+            transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+        }
+        .active-cyan-2 input.form-control[type=text]:focus:not([readonly]) {
+            border-bottom: 1px solid #93ba1f;
+            box-shadow: 0 1px 0 0 #93BA1F;
+        }
+        .select2-container--classic .select2-results__option--highlighted.select2-results__option--selectable {
+            background-color: #eee;
+            color: #fff;
+        }
+        .select2-container--classic .select2-results__option--highlighted.select2-results__option--selectable[aria-selected="true"] {
+            background-color: #93ba1f;
+            color: #fff;
+        }
+        .topmenu .btn:hover, .topmenu .btn:focus, .topmenu .btn:active
+        {
           outline: 0;
-          -webkit-box-shadow: none;
-          box-shadow: none;
-          -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
-          transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
-          transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-          transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
-      }
-      .active-cyan-2 input.form-control[type=text]:focus:not([readonly]) {
-          border-bottom: 1px solid #93ba1f;
-          box-shadow: 0 1px 0 0 #93BA1F;
-      }
+          -webkit-box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+          box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+        }
+        .btn-outline-secondary:hover {
+          color: #93ba1f;
+          background-color: #f8f9fa;
+        }
     </style>
 @endsection
 
@@ -462,8 +493,8 @@
       <span id="status"></span>
       <div class="row">
         <div class="col-md-12">
-          <div id="fixed1" class="page-header pt-3">
-            <h1 class="d-inline-block align-middle">Catálogo Temp</h1>
+          <div id="fixed1" class="page-header">
+            <h1 class="d-inline-block align-middle">CATÁLOGO</h1>
             <h6 style="font-size: .8rem;">Os preços apresentados são por KG ou por UN. Os artigos com valor ao KG têm peso variável, só após a sua pesagem poderemos aferir o valor total da sua encomenda.</h6> 
             <h6 style="font-size: .8rem;">Aos preços apresentados acresce a taxa legal em vigor na RAM. Salvo erro tipográfico ou rutura de stock. Se tiver dúvidas ou necessitar de ajuda, <a href="/faq">contacte-nos.</a></h6>
           </div>
@@ -474,12 +505,7 @@
           <div class="d-md-none d-lg-block col-lg-2 order-1 order-md-0">
               <!-- MENUS AND FILTERS-->
               <div class="panel panel-default sidebar-menu rounded-0 text-center">
-                <div class="panel-heading" style="background: #f7f7f8; border-bottom: 1px solid #eee">
-                  <section class="mb-4">
-                      <div class="md-form md-outline mt-0 d-flex justify-content-between align-items-center">
-                          <input type="text" id="search12" class="form-control mb-0 rounded-0" placeholder="Pesquisar...">
-                      </div>
-                  </section>
+                <div class="panel-heading" style="background: #343A40; border-bottom: 1px solid #eee">
                   @if(isset($search_title))
                     <h3 class="h4 panel-title"> {{$search_title}}</h3>
                   @else
@@ -491,11 +517,20 @@
                 </div>
               </div>
           </div>
+
           <div class="col-md-12 col-lg-10 order-0 order-md-1">
             <!-- Search form -->
-            <div class="md-form active-cyan-2 mb-3">
-              <input class="form-control" type="text" placeholder="Pesquisar..." aria-label="Pesquisar..." style="padding: 1px 1px;">
-            </div>
+            <form class="form-inline mb-3" role="search" method="get" action="/catalogo-cart/pesquisa">
+              {{ csrf_field() }}
+              <div class="input-group md-form form-sm form-1 pl-0 active-cyan-2" style="width: 100%;">
+                <div class="input-group-prepend">
+                  <span class="input-group-text purple lighten-3 border-0" id="basic-text1" style="background-color: transparent;">
+                    <i class="fas fa-search text-secondary" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <input name="_search" class="form-control input-search" type="text" placeholder="Pesquisar..." aria-label="Pesquisar..." style="padding: 1px 1px;">
+              </div>
+            </form>
             <nav class="nav nav-pills nav-fill mb-3 topmenu">
               <?php echo $topbar; ?>
             </nav>
@@ -514,16 +549,16 @@
                         <button class="btn btn-outline-secondary" type="submit">Pesquisar</button>
                       </div>
                     </div>
-                  </form~-->
+                  </form-->
                   <div class="col-6 col-md-4 float-left">
                     <b>{{ $products->lastItem() }}</b>&nbsp; de &nbsp;<b>{{ $products->total() }}</b>&nbsp; produtos
                   </div>
                   <div class="col-6 col-md-4"><?php echo $display_menu; ?></div>
                   <div class="col-12 col-md-4">
                     <div class="form-row">
-                        <label for="staticSort" class="col-6 col-sm-4 col-form-label" style="line-height: 1;">Ordenar por:</label>
+                        <label for="staticSort" class="col-6 col-sm-4 col-form-label" style="line-height: 1;font-size: 14px;">Ordenar por:</label>
                         <div class="col-6 col-sm-8">
-                          <select class="form-control-sm" id="catalogoSortBy" name="sort_by" onchange="location = this.value;"><?php echo $select; ?></select>
+                          <select class="form-control-sm catalogoSortBy" id="catalogoSortBy" name="sort_by" onchange="location = this.value;"><?php echo $select; ?></select>
                         </div>
                       </div>
                     </div>
@@ -539,80 +574,7 @@
 @endsection
 
 @section('footer_scripts')
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-  <!-- Quantity button -->
-  <script type="text/javascript">
-    $('.btn-number').click(function(e){
-        e.preventDefault();
-        
-        fieldName = $(this).attr('data-field');
-        type      = $(this).attr('data-type');
-        var input = $("input[name='"+fieldName+"']");
-        var currentVal = parseInt(input.val());
-        if (!isNaN(currentVal)) {
-            if(type == 'minus') {
-                
-                if(currentVal > input.attr('min')) {
-                    input.val(currentVal - 1).change();
-                } 
-                if(parseInt(input.val()) == input.attr('min')) {
-                    $(this).attr('disabled', true);
-                }
 
-            } else if(type == 'plus') {
-
-                if(currentVal < input.attr('max')) {
-                    input.val(currentVal + 1).change();
-                }
-                if(parseInt(input.val()) == input.attr('max')) {
-                    $(this).attr('disabled', true);
-                }
-
-            }
-        } else {
-            input.val(0);
-        }
-    });
-    $('.input-number').focusin(function(){
-       $(this).data('oldValue', $(this).val());
-    });
-    $('.input-number').change(function() {
-        
-        minValue =  parseInt($(this).attr('min'));
-        maxValue =  parseInt($(this).attr('max'));
-        valueCurrent = parseInt($(this).val());
-        
-        name = $(this).attr('name');
-        if(valueCurrent >= minValue) {
-            $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
-        } else {
-            alert('Sorry, the minimum value was reached');
-            $(this).val($(this).data('oldValue'));
-        }
-        if(valueCurrent <= maxValue) {
-            $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
-        } else {
-            alert('Sorry, the maximum value was reached');
-            $(this).val($(this).data('oldValue'));
-        }  
-    });
-    $(".input-number").keydown(function (e) {
-            // Allow: backspace, delete, tab, escape, enter and .
-            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-                 // Allow: Ctrl+A
-                (e.keyCode == 65 && e.ctrlKey === true) || 
-                 // Allow: home, end, left, right
-                (e.keyCode >= 35 && e.keyCode <= 39)) {
-                     // let it happen, don't do anything
-                     return;
-            }
-            // Ensure that it is a number and stop the keypress
-            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-                e.preventDefault();
-            }
-    });
-  </script>
 @stop
 
 

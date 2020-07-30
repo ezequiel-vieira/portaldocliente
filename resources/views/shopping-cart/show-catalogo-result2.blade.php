@@ -129,8 +129,9 @@
                           </button>
                       </div>
                       <input type="text" name="quant[1]" class="form-control input-number" value="1" min="1" max="10" style=" text-align: center; ">
+                      <input type="hidden" class="form-control quantity" value="1">
                       <div class="input-group-append">
-                          <button type="button" class="btn btn-success btn-number quantity rounded-0" data-type="plus" data-field="quant[1]">
+                          <button type="button" class="btn btn-success btn-number rounded-0" data-type="plus" data-field="quant[1]" style="background-color: #343A40;border-color: #343A40;">
                             <i class="fas fa-plus"></i>
                           </button>
                       </div>
@@ -175,40 +176,45 @@
 </div>
 
 @section('footer_scripts')
-    <!-- Start of  Zendesk Widget script -->
-    <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=8c2a3f10-72ad-40bf-ae67-8da6923471cf"> </script>
-    <!-- GALLERY LIGHTBOX -->
-    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-    <!-- SEARCH -->
-    <script type="text/javascript">
-      var search_input;
-      $(document).on('click', '.btn-search',function(event)
-      {
-        event.preventDefault();
-        search_input = $(this).closest('div.has-search').find('input.quicksearch1');
-        var search_query = $(this).closest('div.has-search').find('input.quicksearch1').val();
-        if ( search_query.length < 3 ){
-          alert('Erro. Tem que inserir no mínimo 3 caracteres.');
-        }else{
-          $.ajax({
-              url: '?_search=' + search_query,
-              method: "get",
-              data: {_token: '{{ csrf_token() }}'},
-              dataType: "html",
-              success: function (products) {
-                  var clean_uri = location.protocol + "//" + location.host + location.pathname;
-                  window.history.replaceState({}, document.title, clean_uri);
-                  search_input.value = '';
-                  $('.btn-search-clear').fadeIn();
-                  $('.conservacao-group, .familia-group, .filter-conservacao-mobile').hide();
-                  $("#content" ).empty().html(products);
-                  $("#content").fadeIn();
-              }
-          });
-        }
-      });
+  <!-- Start of  Zendesk Widget script -->
+  <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=8c2a3f10-72ad-40bf-ae67-8da6923471cf"> </script>
+  <!-- GALLERY LIGHTBOX -->
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <!-- SEARCH -->
+  <!--script type="text/javascript">
+    var search_input;
+    $(document).on('click', '.btn-search',function(event)
+    {
+      event.preventDefault();
+      search_input = $(this).closest('div.has-search').find('input.quicksearch1');
+      var search_query = $(this).closest('div.has-search').find('input.quicksearch1').val();
+      if ( search_query.length < 3 ){
+        alert('Erro. Tem que inserir no mínimo 3 caracteres.');
+      }else{
+        $.ajax({
+            url: '?_search=' + search_query,
+            method: "get",
+            data: {_token: '{{ csrf_token() }}'},
+            dataType: "html",
+            success: function (products) {
+                var clean_uri = location.protocol + "//" + location.host + location.pathname;
+                window.history.replaceState({}, document.title, clean_uri);
+                search_input.value = '';
+                $('.btn-search-clear').fadeIn();
+                $('.conservacao-group, .familia-group, .filter-conservacao-mobile').hide();
+                $("#content" ).empty().html(products);
+                $("#content").fadeIn();
+            }
+        });
+      }
+    });
 
-      search_input = document.getElementsByClassName("input-mobile");
+    search_input = document.getElementsByClassName("input-search");
+    
+    console.log(search_input);
+
+    if(search_input[0])
+    {
       search_input[0].addEventListener("keyup", function(event) 
       {
         if (event.keyCode === 13) {
@@ -237,144 +243,235 @@
           }
         }
       });
+    }
 
-      $(document).on('click', '.btn-search-clear',function(event)
-      {
-        event.preventDefault();
-        $.ajax({
-            url: '?conservacao=all&familia=all',
-            method: "get",
-            data: {_token: '{{ csrf_token() }}'},
-            dataType: "html",
-            success: function (products) {
-                var clean_uri = location.protocol + "//" + location.host + location.pathname;
-                window.history.replaceState({}, document.title, clean_uri);
-                search_input.value = '';
-                $('.btn-search-clear').hide();
-                $('.conservacao-group, .familia-group, .filter-conservacao-mobile').show();
-                $("#content" ).empty().html(products);
-                $("#content").fadeIn();
-            }
-        });
+    $(document).on('click', '.btn-search-clear',function(event)
+    {
+      event.preventDefault();
+      $.ajax({
+          url: '?conservacao=all&familia=all',
+          method: "get",
+          data: {_token: '{{ csrf_token() }}'},
+          dataType: "html",
+          success: function (products) {
+              var clean_uri = location.protocol + "//" + location.host + location.pathname;
+              window.history.replaceState({}, document.title, clean_uri);
+              search_input.value = '';
+              $('.btn-search-clear').hide();
+              $('.conservacao-group, .familia-group, .filter-conservacao-mobile').show();
+              $("#content" ).empty().html(products);
+              $("#content").fadeIn();
+          }
       });
-    </script>
-    <!-- ADD TO CART -->
-    <script type="text/javascript">
-      $(document).on('click', '.add-to-cart',function(event)
-      {
-        event.preventDefault();
-        var ele = $(this);
-        var quantity = $(this).closest('div.row').find('input.quantity').val();
-        console.log(ele);
-        console.log(quantity);
-        $.ajax({
-            url: '{{ url('add-to-cart') }}' + '/' + ele.attr("data-id") + '/' + quantity,
-            method: "get",
-            data: {_token: '{{ csrf_token() }}'},
-            dataType: "json",
-            success: function (response) {
-                $("span#status").html('<div class="alert alert-success alert-dismissable fade show" role="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><h4><i class="icon fa fa-check fa-fw" aria-hidden="true"></i> Produto adicionado com sucesso.</h4></div>');
-                $(ele).closest('div.hovereffect').addClass('activated');
-                $("#header-bar").html(response.data);
-            }
-        });
+    });
+  </script-->
+  <!-- ADD TO CART -->
+  <script type="text/javascript">
+    $(document).on('click', '.add-to-cart',function(event)
+    {
+      event.preventDefault();
+      var ele = $(this);
+      var quantity = $(this).closest('.card-body').find('.quantity').val();
+      $.ajax({
+          url: '{{ url('add-to-cart') }}' + '/' + ele.attr("data-id") + '/' + quantity,
+          method: "get",
+          data: {_token: '{{ csrf_token() }}'},
+          dataType: "json",
+          success: function (response) {
+              $("span#status").html('<div class="alert alert-success alert-dismissable fade show" role="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><h4><i class="icon fa fa-check fa-fw" aria-hidden="true"></i> Produto adicionado com sucesso.</h4></div>');
+              $(ele).closest('div.hovereffect').addClass('activated');
+              $("#header-bar").html(response.data);
+          }
       });
-    </script>
-    <!-- NUMERIC NUMBERS ALLOWED -->
-    <script>
-      $('.numbers').keydown(function () { 
-          this.value = this.value.replace(/[^0-9\.]/g,''); 
-      });
-      $('.numbers').keyup(function () { 
-          this.value = this.value.replace(/[^0-9\.]/g,'');
-      });
-    </script>
-    <!-- STICKY MENU -->
-    <!--script>
-      window.onscroll = function() {myStickyControl()};
+    });
+  </script>
+  <!-- NUMERIC NUMBERS ALLOWED -->
+  <script>
+    $('.numbers').keydown(function () { 
+        this.value = this.value.replace(/[^0-9\.]/g,''); 
+    });
+    $('.numbers').keyup(function () { 
+        this.value = this.value.replace(/[^0-9\.]/g,'');
+    });
+  </script>
+  <!-- STICKY MENU -->
+  <!--script>
+    window.onscroll = function() {myStickyControl()};
 
-      var sticky_control = document.getElementById("sticky-control");
-      var sticky = sticky_control.offsetTop;
+    var sticky_control = document.getElementById("sticky-control");
+    var sticky = sticky_control.offsetTop;
 
-      function myStickyControl() {
-        if (window.pageYOffset >= sticky) {
-          sticky_control.classList.add("sticky")
-        } else {
-          sticky_control.classList.remove("sticky");
-        }
+    function myStickyControl() {
+      if (window.pageYOffset >= sticky) {
+        sticky_control.classList.add("sticky")
+      } else {
+        sticky_control.classList.remove("sticky");
       }
-    </script-->
-    <!-- Quantity button -->
-    <script type="text/javascript">
-      $('.btn-number').click(function(e)
-      {
+    }
+  </script-->
+  <!-- Quantity button -->
+  <!--script type="text/javascript">
+    $('.btn-number').click(function(e)
+    {
+        e.preventDefault();
+        
+        fieldName = $(this).attr('data-field');
+        type      = $(this).attr('data-type');
+        var input = $("input[name='"+fieldName+"']");
+        var currentVal = parseInt(input.val());
+        if (!isNaN(currentVal)) {
+            if(type == 'minus') {
+                
+                if(currentVal > input.attr('min')) {
+                    input.val(currentVal - 1).change();
+                } 
+                if(parseInt(input.val()) == input.attr('min')) {
+                    $(this).attr('disabled', true);
+                }
+
+            } else if(type == 'plus') {
+
+                if(currentVal < input.attr('max')) {
+                    input.val(currentVal + 1).change();
+                }
+                if(parseInt(input.val()) == input.attr('max')) {
+                    $(this).attr('disabled', true);
+                }
+
+            }
+        } else {
+            input.val(0);
+        }
+    });
+    $('.input-number').focusin(function(){
+       $(this).data('oldValue', $(this).val());
+    });
+    $('.input-number').change(function() {
+        
+        minValue =  parseInt($(this).attr('min'));
+        maxValue =  parseInt($(this).attr('max'));
+        valueCurrent = parseInt($(this).val());
+        
+        name = $(this).attr('name');
+        if(valueCurrent >= minValue) {
+            $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+        } else {
+            alert('Sorry, the minimum value was reached');
+            $(this).val($(this).data('oldValue'));
+        }
+        if(valueCurrent <= maxValue) {
+            $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+        } else {
+            alert('Sorry, the maximum value was reached');
+            $(this).val($(this).data('oldValue'));
+        }  
+    });
+    $(".input-number").keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+                 // Allow: Ctrl+A
+                (e.keyCode == 65 && e.ctrlKey === true) || 
+                 // Allow: home, end, left, right
+                (e.keyCode >= 35 && e.keyCode <= 39)) {
+                     // let it happen, don't do anything
+                     return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+    });
+  </script-->
+  <!-- Latest compiled and minified JavaScript -->
+  <!--script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script-->
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+  <!--In your Javascript (external .js resource or <script> tag)-->
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $('.catalogoSortBy').select2({
+            theme: "classic",
+            minimumResultsForSearch: Infinity
+          });
+      });       
+  </script>
+  <!-- Quantity button -->
+  <script type="text/javascript">
+    $('.btn-number').click(function(e)
+    {
+        e.preventDefault();
+        
+        fieldName = $(this).attr('data-field');
+        type      = $(this).attr('data-type');
+        var input = $(this).closest('.input-group').find("input[name='"+fieldName+"']");
+
+        var currentVal = parseInt(input.val());
+        var quantity;
+
+        if (!isNaN(currentVal)) 
+        {
+            if(type == 'minus') {
+              if(currentVal > input.attr('min')) {
+                  input.val(currentVal - 1).change();
+                  quantity = (currentVal - 1);
+              } 
+              if(parseInt(input.val()) == input.attr('min')) {
+                  $(this).attr('disabled', true);
+              }
+            } else if(type == 'plus') {
+              if(currentVal < input.attr('max')) {
+                  input.val(currentVal + 1).change();
+                  quantity = (currentVal + 1);
+              }
+              if(parseInt(input.val()) == input.attr('max')) {
+                  $(this).attr('disabled', true);
+              }
+            }
+            $(this).closest('.input-group').find('.quantity').val(quantity);
+        } else {
+            input.val(0);
+        }
+    });
+    
+    $('.input-number').focusin(function(){
+       $(this).data('oldValue', $(this).val());
+    });
+
+    $('.input-number').change(function()
+    {
+        minValue =  parseInt($(this).attr('min'));
+        maxValue =  parseInt($(this).attr('max'));
+        valueCurrent = parseInt($(this).val());
+        
+        name = $(this).attr('name');
+        if(valueCurrent >= minValue) {
+            $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+        } else {
+            alert('Sorry, the minimum value was reached');
+            $(this).val($(this).data('oldValue'));
+        }
+        if(valueCurrent <= maxValue) {
+            $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+        } else {
+            alert('Sorry, the maximum value was reached');
+            $(this).val($(this).data('oldValue'));
+        }  
+    });
+
+    $(".input-number").keydown(function (e) 
+    {
+      // Allow: backspace, delete, tab, escape, enter and .
+      if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+           // Allow: Ctrl+A
+          (e.keyCode == 65 && e.ctrlKey === true) || 
+           // Allow: home, end, left, right
+          (e.keyCode >= 35 && e.keyCode <= 39)) {
+               // let it happen, don't do anything
+               return;
+      }
+      // Ensure that it is a number and stop the keypress
+      if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
           e.preventDefault();
-          
-          fieldName = $(this).attr('data-field');
-          type      = $(this).attr('data-type');
-          var input = $("input[name='"+fieldName+"']");
-          var currentVal = parseInt(input.val());
-          if (!isNaN(currentVal)) {
-              if(type == 'minus') {
-                  
-                  if(currentVal > input.attr('min')) {
-                      input.val(currentVal - 1).change();
-                  } 
-                  if(parseInt(input.val()) == input.attr('min')) {
-                      $(this).attr('disabled', true);
-                  }
-
-              } else if(type == 'plus') {
-
-                  if(currentVal < input.attr('max')) {
-                      input.val(currentVal + 1).change();
-                  }
-                  if(parseInt(input.val()) == input.attr('max')) {
-                      $(this).attr('disabled', true);
-                  }
-
-              }
-          } else {
-              input.val(0);
-          }
-      });
-      $('.input-number').focusin(function(){
-         $(this).data('oldValue', $(this).val());
-      });
-      $('.input-number').change(function() {
-          
-          minValue =  parseInt($(this).attr('min'));
-          maxValue =  parseInt($(this).attr('max'));
-          valueCurrent = parseInt($(this).val());
-          
-          name = $(this).attr('name');
-          if(valueCurrent >= minValue) {
-              $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
-          } else {
-              alert('Sorry, the minimum value was reached');
-              $(this).val($(this).data('oldValue'));
-          }
-          if(valueCurrent <= maxValue) {
-              $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
-          } else {
-              alert('Sorry, the maximum value was reached');
-              $(this).val($(this).data('oldValue'));
-          }  
-      });
-      $(".input-number").keydown(function (e) {
-              // Allow: backspace, delete, tab, escape, enter and .
-              if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-                   // Allow: Ctrl+A
-                  (e.keyCode == 65 && e.ctrlKey === true) || 
-                   // Allow: home, end, left, right
-                  (e.keyCode >= 35 && e.keyCode <= 39)) {
-                       // let it happen, don't do anything
-                       return;
-              }
-              // Ensure that it is a number and stop the keypress
-              if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-                  e.preventDefault();
-              }
-      });
-    </script>
+      }
+    });
+  </script>
 @stop

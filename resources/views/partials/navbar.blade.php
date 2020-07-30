@@ -92,7 +92,7 @@
         @if ($user->cat_page_lite === 1 || $user->cat_page === 1)
             <div class="dropdownCart mx-auto">
                 <button type="button" class="btn btn-cart-shop" data-toggle="dropdown" style="background-color: #93ba1f; border-color: #93ba1f;">
-                    <i class="fa fa-shopping-cart" aria-hidden="true" style="color:#FFFFFF"></i> 
+                    <i class="fa fa-shopping-cart" aria-hidden="true" style="color: #FFFFFF;left: 5px;position: relative;"></i> 
                     <span class="badge badge-pill badge-danger cart-basket">{{ count((array) session('cart2')) }}</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" style="overflow-y: auto;">
