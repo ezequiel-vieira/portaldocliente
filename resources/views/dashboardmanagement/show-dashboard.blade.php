@@ -113,7 +113,7 @@
             <div class="container">
                 <div class="row justify-content-center" id="dashboard_grid2">
                     @if ($user->cat_page === 1 || $user->cat_page_lite === 1)
-                        <div class="col col-6 text-center mb-3">
+                        <div class="col-12 col-sm-6 text-center mb-3">
                             <div class="thumbnail tile tile-medium tile-orange tile-catalogo rounded-0">  
                                 <a href="/catalogo" class="fa-links">
                                     <div class="tile-icon text-center">
@@ -125,7 +125,7 @@
                         </div>
                     @endif
                     @if ($user->news_page === 1)
-                        <div class="col col-6 text-center mb-3">
+                        <div class="col-12 col-sm-6 text-center mb-3">
                             <div class="thumbnail tile tile-medium tile-orange tile-news rounded-0">  
                                 <a href="/novidades" class="fa-links">
                                     <div class="tile-icon text-center">
@@ -139,7 +139,7 @@
                 </div>
                 <div class="row justify-content-center" id="dashboard_grid">
                     @if ($user->gestao_page === 1)
-                        <div class="col col-12 text-center mb-3">
+                        <div class="col-12 col-sm-12 text-center mb-3">
                             <div class="thumbnail tile tile-medium tile-orange bg-primary rounded-0">  
                                 <a href="/gestao" class="fa-links">
                                     <div class="tile-icon text-center">
@@ -151,7 +151,7 @@
                         </div>
                     @endif
                     @if ($user->perfil_page === 1)
-                        <div class="col col-4 text-center mb-3">
+                        <div class="col-12 col-sm-4 text-center mb-3">
                             <div class="thumbnail tile tile-medium tile-green tile-cliente rounded-0">
                                 <a href="/cliente/{{$cliente->alias}}" class="fa-links">
                                     <div class="tile-icon text-center">
@@ -163,7 +163,7 @@
                         </div>
                     @endif
                     @if ($user->cco_page === 1)
-                        <div class="col col-4 text-center mb-3">
+                        <div class="col-12 col-sm-4 text-center mb-3">
                             <div class="thumbnail tile tile-medium tile-orange tile-cco rounded-0">
                                 <a href="/cliente/{{$cliente->alias}}/conta-corrente" class="fa-links">
                                     <div class="tile-icon text-center">
@@ -175,7 +175,7 @@
                         </div>
                     @endif
                     @if ($user->refunds_page === 1)
-                        <div class="col col-4 text-center mb-3">
+                        <div class="col-12 col-sm-4 text-center mb-3">
                             <div class="thumbnail tile tile-medium tile-orange tile-refund rounded-0">  
                                 <a href="/cliente/{{$cliente->alias}}/devolucoes" class="fa-links">
                                     <div class="tile-icon text-center">
@@ -187,7 +187,7 @@
                         </div>
                     @endif
                     @if ($user->orders_page === 1)
-                        <div class="col col-4 text-center mb-3">
+                        <div class="col-12 col-sm-4 text-center mb-3">
                             <div class="thumbnail tile tile-medium tile-orange tile-orders rounded-0">  
                                 <a href="/cliente/{{$cliente->alias}}/encomendas" class="fa-links">
                                     <div class="tile-icon text-center">
@@ -599,7 +599,6 @@
                 </div>
             </div>
         @endif
-
     </section>
 @endsection
 

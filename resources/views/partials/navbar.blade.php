@@ -9,9 +9,11 @@
                 <span class="navbar-brand-title d-none d-sm-none d-md-inline-block">LOJA ONLINE</span>
             @endif
         </a>
-        <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="text-md-center">
+            <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+                <span class="navbar-toggler-icon"></span>
+            </button>            
+        </div>
         <div class="navbar-collapse offcanvas-collapse" id="mainNavbar">
             <!--ul class="navbar-nav ml-auto d-none d-sm-none d-md-none d-lg-inline"-->
             <ul class="navbar-nav ml-auto d-lg-inline">
@@ -90,7 +92,7 @@
         </div>
         <!-- TEMP -->
         @if ($user->cat_page_lite === 1 || $user->cat_page === 1)
-            <div class="dropdownCart mx-auto">
+            <div class="dropdownCart">
                 <button type="button" class="btn btn-cart-shop" data-toggle="dropdown" style="background-color: #93ba1f; border-color: #93ba1f;">
                     <i class="fa fa-shopping-cart" aria-hidden="true" style="color: #FFFFFF;left: 5px;position: relative;"></i> 
                     <span class="badge badge-pill badge-danger cart-basket">{{ count((array) session('cart2')) }}</span>

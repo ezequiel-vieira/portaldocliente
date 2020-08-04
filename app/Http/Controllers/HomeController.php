@@ -203,45 +203,45 @@ class HomeController extends Controller
         {
             case '30':
                     
-                        $display_menu .= '<div class="products-number-display">';
+                        $display_menu .= '<div class="products-number-display float-right float-md-none">';
                             $display_menu .= '<span><strong>Mostrar</strong></span>';
                             $display_menu .= '<a href="'.$page_name.$url.'&display=30" class="btn btn-sm btn-success disabled">30</a>';
                             $display_menu .= '<a href="'.$page_name.$url.'&display=60" class="btn btn-sm btn-outline-secondary ">60</a>';
                             $display_menu .= '<a href="'.$page_name.$url.'&display=90" class="btn btn-sm btn-outline-secondary ">90</a>';
-                            $display_menu .= '<span>produtos</span>';
+                            $display_menu .= '<span class="d-none d-md-none d-lg-none d-xl-inline-block">produtos</span>';
                         $display_menu .= '</div>';
 
                 break;
             case '60':
                     
-                        $display_menu .= '<div class="products-number-display">';
+                        $display_menu .= '<div class="products-number-display float-right float-md-none">';
                             $display_menu .= '<span><strong>Mostrar</strong></span>';
                             $display_menu .= '<a href="'.$page_name.$url.'&display=30" class="btn btn-sm btn-outline-secondary ">30</a>';
                             $display_menu .= '<a href="'.$page_name.$url.'&display=60" class="btn btn-sm  btn-success disabled">60</a>';
                             $display_menu .= '<a href="'.$page_name.$url.'&display=90" class="btn btn-sm btn-outline-secondary ">90</a>';
-                            $display_menu .= '<span>produtos</span>';
+                            $display_menu .= '<span class="d-none d-md-none d-lg-none d-xl-inline-block">produtos</span>';
                         $display_menu .= '</div>';
 
                 break;
             case '90':
                     
-                        $display_menu .= '<div class="products-number-display">';
+                        $display_menu .= '<div class="products-number-display float-right float-md-none">';
                             $display_menu .= '<span><strong>Mostrar</strong></span>';
                             $display_menu .= '<a href="'.$page_name.$url.'&display=30" class="btn btn-sm btn-outline-secondary ">30</a>';
                             $display_menu .= '<a href="'.$page_name.$url.'&display=60" class="btn btn-sm btn-outline-secondary ">60</a>';
                             $display_menu .= '<a href="'.$page_name.$url.'&display=90" class="btn btn-sm btn-success disabled">90</a>';
-                            $display_menu .= '<span>produtos</span>';
+                            $display_menu .= '<span class="d-none d-md-none d-lg-none d-xl-inline-block">produtos</span>';
                         $display_menu .= '</div>';
 
                 break;
             default:
                     
-                        $display_menu .= '<div class="products-number-display">';
+                        $display_menu .= '<div class="products-number-display float-right float-md-none">';
                             $display_menu .= '<span><strong>Mostrar</strong></span>';
                             $display_menu .= '<a href="'.$page_name.$url.'&display=30" class="btn btn-sm btn-outline-secondary ">30</a>';
                             $display_menu .= '<a href="'.$page_name.$url.'&display=60" class="btn btn-sm btn-outline-secondary ">60</a>';
                             $display_menu .= '<a href="'.$page_name.$url.'&display=90" class="btn btn-sm btn-success disabled">90</a>';
-                            $display_menu .= '<span>produtos</span>';
+                            $display_menu .= '<span class="d-none d-md-none d-lg-none d-xl-inline-block">produtos</span>';
                         $display_menu .= '</div>';
         }
 
@@ -460,9 +460,7 @@ class HomeController extends Controller
                         $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=ambiente&amp;familia='.$familia.'">Ambiente</a>';
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=congelado&amp;familia='.$familia.'">Congelados</a>';
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=refrigerado&amp;familia='.$familia.'">Refrigerados</a>';
-                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu text-left">';
-                            $menu .= '<li class="nav-item">';
-                                  $menu .= '<ul class="nav nav-pills flex-column family-menu">';
+                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu text-left family-menu">';
                                     foreach ($familias_array as $key => $value) 
                                     {
                                         if ($value['family_link'] === $familia) {
@@ -474,64 +472,14 @@ class HomeController extends Controller
                                         $menu .= '<li class="nav-item">';
                                             $menu .= '<a class="nav-link sub-link '.$active_status.'" href="/catalogo-cart?conservacao='.$conservacao.'&amp;familia='.$value['family_link'].'">'.$value['family_title'].'</a>';
                                         $menu .= '</li>';
-                                    }                                                                             
-                                  $menu .= '</ul>';
-                            $menu .= '</li>';
+                                    }
                         $menu .= '</ul>';
                         break;
                     case 'congelado':
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
                         $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
-                        $menu .= '<ul class="nav nav-pills flex-column text-sm category-menu text-left">';
-                            $menu .= '<li class="nav-item">';
-                                  $menu .= '<ul class="nav nav-pills flex-column family-menu">';
-                                   foreach ($familias_array as $key => $value) 
-                                    {
-                                        if ($value['family_link'] === $familia) {
-                                            $active_status = 'active';
-                                        }else{
-                                            $active_status = '';
-                                        }
-
-                                        $menu .= '<li class="nav-item">';
-                                            $menu .= '<a class="nav-link sub-link '.$active_status.'" href="/catalogo-cart?conservacao='.$conservacao.'&amp;familia='.$value['family_link'].'">'.$value['family_title'].'</a>';
-                                        $menu .= '</li>';
-                                    }                                                                           
-                                  $menu .= '</ul>';
-                            $menu .= '</li>';
-                        $menu .= '</ul>';
-                        break;
-                    case 'refrigerado':
-                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
-                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
-                        $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
-                        $menu .= '<ul class="nav nav-pills flex-column text-sm category-menu text-left">';
-                            $menu .= '<li class="nav-item">';
-                                  $menu .= '<ul class="nav nav-pills flex-column family-menu">';
-                                   foreach ($familias_array as $key => $value) 
-                                    {
-                                        if ($value['family_link'] === $familia) {
-                                            $active_status = 'active';
-                                        }else{
-                                            $active_status = '';
-                                        }
-
-                                        $menu .= '<li class="nav-item">';
-                                            $menu .= '<a class="nav-link sub-link '.$active_status.'" href="/catalogo-cart?conservacao='.$conservacao.'&amp;familia='.$value['family_link'].'">'.$value['family_title'].'</a>';
-                                        $menu .= '</li>';
-                                    }                                                                            
-                                  $menu .= '</ul>';
-                            $menu .= '</li>';
-                        $menu .= '</ul>';
-                        break;
-                    default:
-                        $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
-                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
-                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
-                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu text-left">';
-                            $menu .= '<li class="nav-item">';
-                                  $menu .= '<ul class="nav nav-pills flex-column family-menu">';
+                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu text-left family-menu">';
                                     foreach ($familias_array as $key => $value) 
                                     {
                                         if ($value['family_link'] === $familia) {
@@ -543,9 +491,45 @@ class HomeController extends Controller
                                         $menu .= '<li class="nav-item">';
                                             $menu .= '<a class="nav-link sub-link '.$active_status.'" href="/catalogo-cart?conservacao='.$conservacao.'&amp;familia='.$value['family_link'].'">'.$value['family_title'].'</a>';
                                         $menu .= '</li>';
-                                    }                                                                             
-                                  $menu .= '</ul>';
-                            $menu .= '</li>';
+                                    }
+                        $menu .= '</ul>';
+                        break;
+                    case 'refrigerado':
+                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
+                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
+                        $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
+                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu text-left family-menu">';
+                                    foreach ($familias_array as $key => $value) 
+                                    {
+                                        if ($value['family_link'] === $familia) {
+                                            $active_status = 'active';
+                                        }else{
+                                            $active_status = '';
+                                        }
+
+                                        $menu .= '<li class="nav-item">';
+                                            $menu .= '<a class="nav-link sub-link '.$active_status.'" href="/catalogo-cart?conservacao='.$conservacao.'&amp;familia='.$value['family_link'].'">'.$value['family_title'].'</a>';
+                                        $menu .= '</li>';
+                                    }
+                        $menu .= '</ul>';
+                        break;
+                    default:
+                        $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
+                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
+                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
+                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu text-left family-menu">';
+                                    foreach ($familias_array as $key => $value) 
+                                    {
+                                        if ($value['family_link'] === $familia) {
+                                            $active_status = 'active';
+                                        }else{
+                                            $active_status = '';
+                                        }
+
+                                        $menu .= '<li class="nav-item">';
+                                            $menu .= '<a class="nav-link sub-link '.$active_status.'" href="/catalogo-cart?conservacao='.$conservacao.'&amp;familia='.$value['family_link'].'">'.$value['family_title'].'</a>';
+                                        $menu .= '</li>';
+                                    }
                         $menu .= '</ul>';
                         break;
                 }
@@ -561,12 +545,10 @@ class HomeController extends Controller
                 //SIDEBAR-MENU
                 switch ($conservacao) {
                     case 'ambiente':
-                        $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
-                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
-                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
-                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu text-left">';
-                            $menu .= '<li class="nav-item">';
-                                  $menu .= '<ul class="nav nav-pills flex-column family-menu">';
+                        $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=ambiente&amp;familia='.$familia.'">Ambiente</a>';
+                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=congelado&amp;familia='.$familia.'">Congelados</a>';
+                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=refrigerado&amp;familia='.$familia.'">Refrigerados</a>';
+                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu text-left family-menu">';
                                     foreach ($familias_array as $key => $value) 
                                     {
                                         if ($value['family_link'] === $familia) {
@@ -578,64 +560,14 @@ class HomeController extends Controller
                                         $menu .= '<li class="nav-item">';
                                             $menu .= '<a class="nav-link sub-link '.$active_status.'" href="/catalogo-cart?conservacao='.$conservacao.'&amp;familia='.$value['family_link'].'">'.$value['family_title'].'</a>';
                                         $menu .= '</li>';
-                                    }                                                                             
-                                  $menu .= '</ul>';
-                            $menu .= '</li>';
+                                    }
                         $menu .= '</ul>';
                         break;
                     case 'congelado':
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
                         $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
                         $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
-                        $menu .= '<ul class="nav nav-pills flex-column text-sm category-menu text-left">';
-                            $menu .= '<li class="nav-item">';
-                                  $menu .= '<ul class="nav nav-pills flex-column family-menu">';
-                                   foreach ($familias_array as $key => $value) 
-                                    {
-                                        if ($value['family_link'] === $familia) {
-                                            $active_status = 'active';
-                                        }else{
-                                            $active_status = '';
-                                        }
-
-                                        $menu .= '<li class="nav-item">';
-                                            $menu .= '<a class="nav-link sub-link '.$active_status.'" href="/catalogo-cart?conservacao='.$conservacao.'&amp;familia='.$value['family_link'].'">'.$value['family_title'].'</a>';
-                                        $menu .= '</li>';
-                                    }                                                                           
-                                  $menu .= '</ul>';
-                            $menu .= '</li>';
-                        $menu .= '</ul>';
-                        break;
-                    case 'refrigerado':
-                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
-                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
-                        $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
-                        $menu .= '<ul class="nav nav-pills flex-column text-sm category-menu text-left">';
-                            $menu .= '<li class="nav-item">';
-                                  $menu .= '<ul class="nav nav-pills flex-column family-menu">';
-                                   foreach ($familias_array as $key => $value) 
-                                    {
-                                        if ($value['family_link'] === $familia) {
-                                            $active_status = 'active';
-                                        }else{
-                                            $active_status = '';
-                                        }
-
-                                        $menu .= '<li class="nav-item">';
-                                            $menu .= '<a class="nav-link sub-link '.$active_status.'" href="/catalogo-cart?conservacao='.$conservacao.'&amp;familia='.$value['family_link'].'">'.$value['family_title'].'</a>';
-                                        $menu .= '</li>';
-                                    }                                                                            
-                                  $menu .= '</ul>';
-                            $menu .= '</li>';
-                        $menu .= '</ul>';
-                        break;
-                    default:
-                        $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
-                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
-                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
-                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu text-left">';
-                            $menu .= '<li class="nav-item">';
-                                  $menu .= '<ul class="nav nav-pills flex-column family-menu">';
+                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu text-left family-menu">';
                                     foreach ($familias_array as $key => $value) 
                                     {
                                         if ($value['family_link'] === $familia) {
@@ -647,9 +579,45 @@ class HomeController extends Controller
                                         $menu .= '<li class="nav-item">';
                                             $menu .= '<a class="nav-link sub-link '.$active_status.'" href="/catalogo-cart?conservacao='.$conservacao.'&amp;familia='.$value['family_link'].'">'.$value['family_title'].'</a>';
                                         $menu .= '</li>';
-                                    }                                                                             
-                                  $menu .= '</ul>';
-                            $menu .= '</li>';
+                                    }
+                        $menu .= '</ul>';
+                        break;
+                    case 'refrigerado':
+                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
+                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
+                        $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
+                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu text-left family-menu">';
+                                    foreach ($familias_array as $key => $value) 
+                                    {
+                                        if ($value['family_link'] === $familia) {
+                                            $active_status = 'active';
+                                        }else{
+                                            $active_status = '';
+                                        }
+
+                                        $menu .= '<li class="nav-item">';
+                                            $menu .= '<a class="nav-link sub-link '.$active_status.'" href="/catalogo-cart?conservacao='.$conservacao.'&amp;familia='.$value['family_link'].'">'.$value['family_title'].'</a>';
+                                        $menu .= '</li>';
+                                    }
+                        $menu .= '</ul>';
+                        break;
+                    default:
+                        $top_menu .= '<a class="nav-item nav-link active" href="/catalogo-cart?conservacao=ambiente&amp;familia=all">Ambiente</a>';
+                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=congelado&amp;familia=all">Congelados</a>';
+                        $top_menu .= '<a class="nav-item nav-link" href="/catalogo-cart?conservacao=refrigerado&amp;familia=all">Refrigerados</a>';
+                        $menu .= '<ul class="nav nav-pills flex-column flex-sm-column text-sm category-menu text-left family-menu">';
+                                    foreach ($familias_array as $key => $value) 
+                                    {
+                                        if ($value['family_link'] === $familia) {
+                                            $active_status = 'active';
+                                        }else{
+                                            $active_status = '';
+                                        }
+
+                                        $menu .= '<li class="nav-item">';
+                                            $menu .= '<a class="nav-link sub-link '.$active_status.'" href="/catalogo-cart?conservacao='.$conservacao.'&amp;familia='.$value['family_link'].'">'.$value['family_title'].'</a>';
+                                        $menu .= '</li>';
+                                    }
                         $menu .= '</ul>';
                         break;
                 }

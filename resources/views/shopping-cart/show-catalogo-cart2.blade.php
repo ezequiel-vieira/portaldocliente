@@ -409,7 +409,7 @@
       .family-menu .nav-link{
         color: #444242;
         border-bottom: 1px solid #93ba1f;
-        padding: 10px;
+        padding: 10px 0px;
       }
       .products-number-display .btn-outline-secondary {
           color: #444242;
@@ -475,6 +475,45 @@
           background-color: #f8f9fa;
         }
     </style>
+    <!-- Custom CSS -->
+    <style>
+        /* collapsed sidebar styles */
+        /*
+         * Off Canvas
+         * --------------------------------------------------
+         */
+        @media screen and (max-width: 991px) 
+        {
+          .row-offcanvas {
+            position: relative;
+            -webkit-transition: all 0.4s ease-out;
+            -moz-transition: all 0.4s ease-out;
+            transition: all 0.4s ease-out;
+          }
+          .row-offcanvas-left #sidebarLeft {
+            left: -40%;
+            display: none;
+          }
+          .row-offcanvas-left.active {
+            left: 40%;
+          }
+          .sidebar-offcanvas {
+            position: absolute;
+            top: 0;
+            width: 40%;
+            margin-left: 10px;
+          }
+          .row-offcanvas-left.active #sidebarLeft{
+            display: block !important;
+          }
+        }
+        @media screen and (max-width: 400px) 
+        {
+          .category-menu a.sub-link {
+            font-size: .5rem;
+          }
+        }
+    </style>
 @endsection
 
 @section('template_breadcrumbs')
@@ -490,86 +529,79 @@
 
 @section('content')
   <div class="container products filters font-pantone">
-      <span id="status"></span>
-      <div class="row">
-        <div class="col-md-12">
-          <div id="fixed1" class="page-header">
-            <h1 class="d-inline-block align-middle">CATÁLOGO</h1>
-            <h6 style="font-size: .8rem;">Os preços apresentados são por KG ou por UN. Os artigos com valor ao KG têm peso variável, só após a sua pesagem poderemos aferir o valor total da sua encomenda.</h6> 
-            <h6 style="font-size: .8rem;">Aos preços apresentados acresce a taxa legal em vigor na RAM. Salvo erro tipográfico ou rutura de stock. Se tiver dúvidas ou necessitar de ajuda, <a href="/faq">contacte-nos.</a></h6>
-          </div>
+    <span id="status"></span>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="fixed1" class="page-header">
+          <h1 class="d-inline-block align-middle">CATÁLOGO</h1>
+          <h6 style="font-size: .8rem;">Os preços apresentados são por KG ou por UN. Os artigos com valor ao KG têm peso variável, só após a sua pesagem poderemos aferir o valor total da sua encomenda.</h6> 
+          <h6 style="font-size: .8rem;">Aos preços apresentados acresce a taxa legal em vigor na RAM. Salvo erro tipográfico ou rutura de stock. Se tiver dúvidas ou necessitar de ajuda, <a href="/faq">contacte-nos.</a></h6>
         </div>
       </div>
-      <div class="sticky-top">
-        <div class="row">
-          <div class="d-md-none d-lg-block col-lg-2 order-1 order-md-0">
-              <!-- MENUS AND FILTERS-->
-              <div class="panel panel-default sidebar-menu rounded-0 text-center">
-                <div class="panel-heading" style="background: #343A40; border-bottom: 1px solid #eee">
-                  @if(isset($search_title))
-                    <h3 class="h4 panel-title"> {{$search_title}}</h3>
-                  @else
-                    <h3 class="h4 panel-title"> FAMÍLIAS</h3>
-                  @endif
-                </div>
-                <div class="panel-body">
-                  <?php echo $sidebar; ?>
-                </div>
+    </div>
+    <div class="sticky-top">
+      <div class="row row-offcanvas row-offcanvas-left">
+        <div class="col-lg-2 order-1 order-md-0 sidebar-offcanvas d-md-none d-lg-block" id="sidebarLeft" role="navigation">
+            <!-- MENUS AND FILTERS-->
+            <div class="panel panel-default sidebar-menu rounded-0 text-center">
+              <div class="panel-heading" style="background: #343A40; border-bottom: 1px solid #eee">
+                @if(isset($search_title))
+                  <h3 class="h4 panel-title"> {{$search_title}}</h3>
+                @else
+                  <h3 class="h4 panel-title"> FAMÍLIAS</h3>
+                @endif
               </div>
-          </div>
-
-          <div class="col-md-12 col-lg-10 order-0 order-md-1">
-            <!-- Search form -->
-            <form class="form-inline mb-3" role="search" method="get" action="/catalogo-cart/pesquisa">
-              {{ csrf_field() }}
-              <div class="input-group md-form form-sm form-1 pl-0 active-cyan-2" style="width: 100%;">
-                <div class="input-group-prepend">
-                  <span class="input-group-text purple lighten-3 border-0" id="basic-text1" style="background-color: transparent;">
-                    <i class="fas fa-search text-secondary" aria-hidden="true"></i>
-                  </span>
-                </div>
-                <input name="_search" class="form-control input-search" type="text" placeholder="Pesquisar..." aria-label="Pesquisar..." style="padding: 1px 1px;">
-              </div>
-            </form>
-            <nav class="nav nav-pills nav-fill mb-3 topmenu">
-              <?php echo $topbar; ?>
-            </nav>
-            <hr>
-
-            <div class="row">
-              <div class="col-md-12">
-                <nav class="navbar navbar-light bg-light mb-3" >
-                  <!--div class="col-md-6 float-left mb-3">
-                    Mostrando &nbsp;<b>{{ $products->lastItem() }}</b>&nbsp; de &nbsp;<b>{{ $products->total() }}</b>&nbsp; produtos
-                  </div>
-                  <form role="search" class="form-inline col-md-6 mb-3" method="get" action="/catalogo-cart/pesquisa" style="display: block !important;">
-                    <div class="input-group mb-3">
-                      <input type="search" class="form-control" placeholder="Pesquisar..." aria-label="Pesquisar..." aria-describedby="basic-addon2"  name="_search">
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit">Pesquisar</button>
-                      </div>
-                    </div>
-                  </form-->
-                  <div class="col-6 col-md-4 float-left">
-                    <b>{{ $products->lastItem() }}</b>&nbsp; de &nbsp;<b>{{ $products->total() }}</b>&nbsp; produtos
-                  </div>
-                  <div class="col-6 col-md-4"><?php echo $display_menu; ?></div>
-                  <div class="col-12 col-md-4">
-                    <div class="form-row">
-                        <label for="staticSort" class="col-6 col-sm-4 col-form-label" style="line-height: 1;font-size: 14px;">Ordenar por:</label>
-                        <div class="col-6 col-sm-8">
-                          <select class="form-control-sm catalogoSortBy" id="catalogoSortBy" name="sort_by" onchange="location = this.value;"><?php echo $select; ?></select>
-                        </div>
-                      </div>
-                    </div>
-                </nav>
+              <div class="panel-body">
+                <?php echo $sidebar; ?>
               </div>
             </div>
+        </div>
+        <div class="col-md-12 col-lg-10 order-0 order-md-1" id="main">
+          <!-- Search form -->
+          <form class="form-inline mb-3" role="search" method="get" action="/catalogo-cart/pesquisa">
+            {{ csrf_field() }}
+            <div class="col-1 col-md-1 px-0">
+              <button class="btn btn-primary btn-xs d-md-block d-lg-none data-toggle rounded-0" type="button" style="background-color: #343a40; border-color: #343a40;">
+                <i class="fas fa-bars" style="color:#93ba1f;"></i>
+              </button>
+            </div>
+            <div class="input-group md-form form-sm form-1 pl-lg-0 active-cyan-2 col-11 col-md-11 col-lg-12" style="width: 100%;">
+              <div class="input-group-prepend">
+                <span class="input-group-text purple lighten-3 border-0" id="basic-text1" style="background-color: transparent;">
+                  <i class="fas fa-search text-secondary" aria-hidden="true"></i>
+                </span>
+              </div>
+              <input name="_search" class="form-control input-search" type="text" placeholder="Pesquisar..." aria-label="Pesquisar..." style="padding: 1px 1px;">
+            </div>
+          </form>
+          <nav class="nav nav-pills nav-fill mb-3 topmenu">
+            <?php echo $topbar; ?>
+          </nav>
+          <hr>
 
-            @include('shopping-cart.show-catalogo-result2')
+          <div class="row">
+            <div class="col-md-12">
+              <nav class="navbar navbar-light bg-light mb-3" >
+                <div class="col-6 col-xs-4 col-md-4 col-md-4 col-lg-4 col-xl-4 float-left">
+                  <b>{{ $products->lastItem() }}</b>&nbsp; de &nbsp;<b>{{ $products->total() }}</b>&nbsp; <span class="d-md-inline-block d-lg-inline-block d-xl-inline-block">produtos</span>
+                </div>
+                <div class="col-6 col-xs-4 col-md-4 col-lg-4 col-xl-4 float-sm-right"><?php echo $display_menu; ?></div>
+                <div class="col-12 col-xs-4 col-md-4 col-lg-4 col-xl-4">
+                  <div class="form-row">
+                      <label for="staticSort" class="col-6 col-sm-4 col-form-label d-md-none d-lg-none d-xl-inline-block float-right float-md-none" style="line-height: 1;font-size: 14px;">Ordenar por:</label>
+                      <div class="col-6 col-sm-8">
+                        <select class="form-control-sm catalogoSortBy" id="catalogoSortBy" name="sort_by" onchange="location = this.value;"><?php echo $select; ?></select>
+                      </div>
+                    </div>
+                  </div>
+              </nav>
+            </div>
           </div>
-        </div>       
-      </div>
+
+          @include('shopping-cart.show-catalogo-result2')
+        </div>
+      </div>       
+    </div>
   </div>
 @endsection
 

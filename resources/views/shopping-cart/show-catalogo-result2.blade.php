@@ -474,4 +474,11 @@
       }
     });
   </script>
+  <script type="text/javascript">
+  $('.data-toggle').click(function() 
+  {
+    $('.row-offcanvas-left').toggleClass('active');
+    $("i", this).toggleClass("fa-bars fa-times-circle");
+  });
+  </script>
 @stop
